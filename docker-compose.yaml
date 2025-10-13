@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  portefoljepilot:
+    container_name: portefoljepilot
+    build:
+      context: /volume2/workspace/AI/AI-Active/AI-Python-PortefoeljePilot
+      dockerfile: Dockerfile.prod
+    ports:
+      - "8085:5000"
+    volumes:
+      - /volume2/workspace/AI/AI-Active/AI-Python-PortefoeljePilot:/app
+    restart: unless-stopped
+  watchdog:
+    build:
+      context: /volume2/workspace/AI/AI-Active/AI-Python-PortefoeljePilot
+      dockerfile: Dockerfile.dev
+    command:
+      [
+        "watchmedo",
+        "auto-restart",
+        "--directory=.",
+        "--pattern=*.py",
+        "--recursive",
+        "--",
+        "python",
+        "watchdog_runner.py",
+      ]
+    volumes:
+      - /volume2/workspace/AI/AI-Active/AI-Python-PortefoeljePilot:/app
+    depends_on:
+      - portefoljepilot
