@@ -1,7 +1,8 @@
-from flask import Flask, redirect, render_template_string, Response, request, send_file
+from flask import Flask, redirect, render_template, render_template_string, Response, request, send_file, jsonify
 import markdown
 import subprocess
 import json
+import requests
 import os
 
 
@@ -23,7 +24,6 @@ def vis_kompetencer():
 
     with open(DATA_PATH, "r", encoding="utf-8") as f:
         cv = json.load(f)
-        print("CV-indhold:", cv)
 
     # Byg Markdown-indhold
     md = f"# {cv.get('name', '')}\n\n"
@@ -110,31 +110,39 @@ def vis_kompetencer():
     """, html=html)
 
 
-@app.route("/rediger", methods=["GET", "POST"])
-def rediger_kompetencer():
-    if request.method == "POST":
-        ny_data = request.form.get("jsondata")
-        if not ny_data:
-            return "Ingen data modtaget."
-        try:
-            parsed = json.loads(ny_data)
-            with open(DATA_PATH, "w", encoding="utf-8") as f:
-                json.dump(parsed, f, indent=2, ensure_ascii=False)
-            return redirect("/kompetencer")
-        except Exception as e:
-            return f"Fejl i JSON: {e}"
+def generate_cv_response(user_input, competence_data):
+    prompt = f"""
+Du er en dansk CV-assistent. Brug følgende JSON-data som baggrund:
+
+{json.dumps(competence_data, indent=2, ensure_ascii=False)}
+
+Brugerens spørgsmål: {user_input}
+Svar med en professionel, dansk tekst.
+"""
+
+    response = requests.post("http://localai:8080/v1/chat/completions", json={
+        "model": "mistral",
+        "messages": [{"role": "user", "content": prompt}],
+        "temperature": 0.7
+    })
+
+    return response.json()["choices"][0]["message"]["content"]
+
+
+@app.route("/chat", methods=["POST"])
+def chat():
+    user_input = request.json.get("message")
+    if not user_input:
+        return jsonify({"error": "Ingen besked modtaget"}), 400
+
     if os.path.exists(DATA_PATH):
         with open(DATA_PATH, "r", encoding="utf-8") as f:
-            eksisterende = f.read()
+            competence_data = json.load(f)
     else:
-        eksisterende = "[]"
-    return render_template_string("""
-        <h1>Rediger kompetencer</h1>
-        <form method="post">
-            <textarea name="jsondata" rows="20" cols="80">{{ eksisterende }}</textarea><br>
-            <button type="submit">Gem</button>
-        </form>
-    """, eksisterende=eksisterende)
+        competence_data = {}
+
+    reply = generate_cv_response(user_input, competence_data)
+    return jsonify({"reply": reply})
 
 
 @app.route("/test")
