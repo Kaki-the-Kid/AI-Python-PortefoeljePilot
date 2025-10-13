@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>{{ name }}</h1>
+<md-filled-button label="Download CV"></md-filled-button>
+
+<md-list>
+    {% for skill in skills %}
+    <md-list-item>{{ skill }}</md-list-item>
+    {% endfor %}
+</md-list>
+
+{% endblock %}
