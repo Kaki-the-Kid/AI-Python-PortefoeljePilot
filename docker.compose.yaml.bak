@@ -1,0 +1,12 @@
+version: "3"
+services:
+  portefoljepilot:
+    build: .
+    ports:
+      - "8083:5000"
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+    environment:
+      - FLASK_ENV=development
+      - PORT=5000

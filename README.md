@@ -22,3 +22,20 @@
 ```text
 Bruger: Hvad har Karsten lavet med Python?
 Bot: Karsten har udviklet scripts til automatisering, overvågning og integration med Synology NAS. Se et eksempel her: [link]
+
+## Deployment
+
+✅ Lokal drift og privatl
+Jeg undgår cloud-afhængighed og bevarer fuld kontrol over data og AI-interaktioner – præcis som du foretrækker.
+✅ Let deployment
+Med Docker kan jeg:
+- Pakke hele appen (Flask + frontend + data) i én container
+- Køre den som en webservice på din NAS
+- Opdatere og vedligeholde med minimale konflikter
+✅ Ressourcevenlig
+Jeg kan holde det let:
+- Ingen tunge databaser nødvendige (JSON/Markdown er nok)
+- Ingen ekstern API-afhængighed, hvis du bruger lokal LLM (fx via Ollama)
+✅ Integration med dit eksisterende setup
+- Jeg kan koble den til overvågningsscripts, GitHub-webhooks eller endda en lokal promptserver
+- Du kan styre adgang via Synology Reverse Proxy og evt. HTTPS
