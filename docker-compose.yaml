@@ -7,10 +7,12 @@ services:
       context: /volume2/workspace/AI/AI-Active/AI-Python-PortefoeljePilot
       dockerfile: Dockerfile.prod
     ports:
-      - "8085:5000"
+      - "5050:5000"
     volumes:
       - /volume2/workspace/AI/AI-Active/AI-Python-PortefoeljePilot:/app
     restart: unless-stopped
+    depends_on:
+      - local-ai
   watchdog:
     build:
       context: /volume2/workspace/AI/AI-Active/AI-Python-PortefoeljePilot
@@ -30,3 +32,16 @@ services:
       - /volume2/workspace/AI/AI-Active/AI-Python-PortefoeljePilot:/app
     depends_on:
       - portefoljepilot
+
+  localai:
+    image: ghcr.io/go-skynet/local-ai:latest
+    container_name: localai
+    ports:
+      - "1234:8080"
+    volumes:
+      - /volume2/workspace/AI/models:/models
+    environment:
+      - MODELS_PATH=/models
+      - DEBUG=true
+      - THREADS=4
+      - CONTEXT_SIZE=4096
