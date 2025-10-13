@@ -10,14 +10,7 @@ DATA_PATH = "./data/competence.json"
 
 @app.route("/")
 def index():
-    md_path = "./docker/portefoljepilot/data/intro.md"
-    if os.path.exists(md_path):
-        with open(md_path, "r", encoding="utf-8") as f:
-            content = f.read()
-        html = markdown.markdown(content)
-        return render_template_string("<html><body>{{ html|safe }}</body></html>", html=html)
-    else:
-        return "Ingen data fundet."
+    return render_template_string("<html><body>{{ html|safe }}</body></html>", html=html)
 
     
 @app.route("/kompetencer")
