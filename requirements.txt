@@ -1,2 +1,6 @@
 flask
 markdown
+jinja2
+pytest
+pytest-flask
+watchdog
