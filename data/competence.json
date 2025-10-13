@@ -1,0 +1,96 @@
+{
+    "name": "Karsten Reitan Sørensen",
+    "title": "IT-specialist, underviser og udvikler",
+    "contact": {
+        "email": "karsten.reitan@gmail.com",
+        "phone": "+4560749291",
+        "location": "Hadsten, Danmark",
+        "linkedin": "https://www.linkedin.com/in/illustratorkaki/",
+        "github": "https://github.com/Kaki-the-Kid?tab=repositories"
+    },
+    "skills": [
+        "Python programmering",
+        "Embedded systemer og microcontrollers",
+        "Linux til server og embedded",
+        "Docker og containerisering",
+        "Grafisk design og webproduktion",
+        "Undervisning og instruktørrolle",
+        "Databaseprogrammering",
+        "AI: NLP, NLU og prompting",
+        "SCRUM og projektstyring",
+        "Kundesupport og teknisk service"
+    ],
+    "experience": [
+        {
+            "role": "Underviser",
+            "company": "Aarhus Tech",
+            "period": "2019–2023",
+            "highlights": [
+                "Undervisning i embedded, Linux, C/C++/C#, databaser",
+                "Udvikling af undervisningsmateriale",
+                "Skolepraktikinstruktør og faglig støtte"
+            ]
+        },
+        {
+            "role": "Marketing Manager",
+            "company": "Megavol A/S",
+            "period": "2013–2015",
+            "highlights": [
+                "Grafisk produktion og online marketing",
+                "Webmaster og tekstforfatter"
+            ]
+        },
+        {
+            "role": "Servicetekniker",
+            "company": "TDC via EHV A/S",
+            "period": "2001–2002",
+            "highlights": [
+                "Installering af ADSL, ISDN og telefoni",
+                "Kundekontakt og teknisk service"
+            ]
+        },
+        {
+            "role": "Full Stack Programmør",
+            "company": "Netguide",
+            "period": "1997–2000",
+            "highlights": [
+                "Webudvikling og teknisk dokumentation",
+                "Kundekontakt og projektledelse"
+            ]
+        }
+    ],
+    "education": [
+        {
+            "degree": "Elektronikfagtekniker",
+            "institution": "Århus Tekniske Skole",
+            "period": "1992–1996"
+        }
+    ],
+    "courses": [
+        {
+            "title": "Anvendelse af Kunstig Intelligens (AI)",
+            "provider": "Copenhagen Business Academy",
+            "year": 2024
+        },
+        {
+            "title": "Photoshop CSS6",
+            "provider": "Jensens Bureau",
+            "year": 2016
+        },
+        {
+            "title": "Moodle LMS Advanced",
+            "year": 2013
+        }
+    ],
+    "languages": {
+        "dansk": "Flydende",
+        "engelsk": "Flydende"
+    },
+    "volunteer": [
+        {
+            "role": "Revisor",
+            "organization": "MBK1943",
+            "period": "2022–2024"
+        }
+    ]
+}
