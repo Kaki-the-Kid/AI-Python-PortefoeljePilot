@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block title %}Rediger kompetencer{% endblock %}
+{% block content %}
+
+<h2>Rediger competence.json</h2>
+
+<form method="post">
+    <style>
+        :root {
+            --md-filled-text-field-input-text-font: "monospace";
+        }
+    </style>
+    <md-filled-text-field type="textarea" label="JSON-data" name="jsondata" rows="20" cols="80"
+        supporting-text="JSON fil til redigering" value="{{ eksisterende }}"></md-filled-text-field>
+    <br><br>
+    <md-filled-button type='submit' label="Gem">Gem</md-filled-button>
+</form>
+
+{% if fejl %}
+<md-elevated-card style="margin-top:2em; background:#ffebee; padding:1em;">
+    <strong>Fejl i JSON:</strong> {{ fejl }}
+</md-elevated-card>
+{% endif %}
+
+
+{% endblock %}
