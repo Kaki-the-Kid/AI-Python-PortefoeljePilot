@@ -1,8 +1,12 @@
 {
     "cSpell.words": [
+        "cpus",
+        "healthcheck",
         "jinja",
         "jsondata",
+        "jsonify",
         "localai",
+        "mdui",
         "pkill",
         "Portefoelje",
         "portefoljepilot",

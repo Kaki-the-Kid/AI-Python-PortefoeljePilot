@@ -4,19 +4,13 @@ services:
     labels:
       cockpit.role: "CV-agent"
       cockpit.weight: "medium"
-    deploy:
-      resources:
-        limits:
-          cpus: "1.5"
-        reservations:
-          cpus: "1.0"
     build:
-      context: /volume2/workspace/AI/AI-Active/AI-Python-PortefoeljePilot
+      context: ./ # Lokalt projektmappe
       dockerfile: Dockerfile.prod
     ports:
       - "5050:5000"
     volumes:
-      - /volume2/workspace/AI/AI-Active/AI-Python-PortefoeljePilot:/app
+      - Z:\:/app
     restart: unless-stopped
     depends_on:
       - localai
@@ -26,12 +20,8 @@ services:
     labels:
       cockpit.role: "watchdog"
       cockpit.weight: "low"
-    deploy:
-      resources:
-        limits:
-          cpus: "0.25"
     build:
-      context: /volume2/workspace/AI/AI-Active/AI-Python-PortefoeljePilot
+      context: ./ # Samme lokale mappe
       dockerfile: Dockerfile.dev
     command:
       [
@@ -45,7 +35,7 @@ services:
         "watchdog_runner.py",
       ]
     volumes:
-      - /volume2/workspace/AI/AI-Active/AI-Python-PortefoeljePilot:/app
+      - Z:\:/app
     depends_on:
       - portefoljepilot
     restart: unless-stopped
@@ -55,20 +45,19 @@ services:
     labels:
       cockpit.role: "AI-agent"
       cockpit.weight: "high"
-    #image: ghcr.io/go-skynet/local-ai:latest
     image: localai/localai:latest
     ports:
       - "1234:8080"
     volumes:
-      - /volume2/workspace/AI/models:/models
+      - Z:\models:/models
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
       interval: 30s
       timeout: 10s
       retries: 3
     environment:
-      - MODELS_PATH=${MODELS_PATH}
-      - DEBUG=${DEBUG}
-      - THREADS=${THREADS}
-      - CONTEXT_SIZE=${CONTEXT_SIZE}
+      - MODELS_PATH=/models
+      - DEBUG=false
+      - THREADS=4
+      - CONTEXT_SIZE=2048
     restart: unless-stopped

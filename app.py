@@ -2,6 +2,7 @@ from flask import Flask, redirect, render_template, render_template_string, Resp
 import markdown
 import subprocess
 import json
+import socket
 import requests
 import os
 
@@ -14,11 +15,37 @@ DATA_PATH = os.path.join(BASE_DIR, "data", "competence.json")
 
 @app.route("/")
 def index():
-    return "PorteføljePilot kører! Bummer!"
+    return render_template("index.html", status=get_status())
 
-    
+
+def get_status():
+    status = {
+        "flask": "OK",
+        "localai": "NOT OK",
+        "watchdog": "NOT OK"
+    }
+
+    # Tjek LocalAI via HTTP
+    try:
+        r = requests.get("http://localhost:8080/health", timeout=1)
+        if r.status_code == 200:
+            status["localai"] = "OK"
+    except:
+        status["localai"] = "NOT OK"
+
+    # Tjek om watchdog-porten er åben (fx 5051)
+    try:
+        sock = socket.create_connection(("localhost", 5051), timeout=1)
+        sock.close()
+        status["watchdog"] = "OK"
+    except:
+        status["watchdog"] = "NOT OK"
+
+    return status
+
+
 @app.route("/kompetencer")
-def vis_kompetencer():
+def show_competences():
     if not os.path.exists(DATA_PATH):
         return "Ingen kompetencefil fundet."
 
@@ -44,7 +71,6 @@ def vis_kompetencer():
         for skill in skills:
             md += f"- {skill}\n"
         md += "\n"
-
 
     # Erfaring
     experience = cv.get("experience", [])
@@ -93,21 +119,7 @@ def vis_kompetencer():
     # Konverter Markdown til HTML
     html = markdown.markdown(md)
 
-    return render_template_string("""
-        <html>
-        <head>
-            <title>Kompetencer</title>
-            <style>
-                body { font-family: sans-serif; max-width: 800px; margin: auto; padding: 2em; }
-                h1, h2, h3 { color: #2c3e50; }
-                ul { padding-left: 1.2em; }
-            </style>
-        </head>
-        <body>
-            {{ html | safe }}
-        </body>
-        </html>
-    """, html=html)
+    return render_template("competences.html", html=html)
 
 
 def generate_cv_response(user_input, competence_data):

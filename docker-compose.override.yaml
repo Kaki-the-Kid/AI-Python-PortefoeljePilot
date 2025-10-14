@@ -1,9 +1,8 @@
-version: "3.8"
-
 services:
   portefoljepilot:
     build:
       dockerfile: Dockerfile.dev
     environment:
       - FLASK_ENV=development
-    command: ["flask", "run", "--reload"]
+      - FLASK_APP=app.py
+    command: ["python", "app.py"]
