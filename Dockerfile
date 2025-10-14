@@ -1,8 +1,8 @@
 # Base image med Python 3.12
-FROM python:3.12-slim-bookworm
+FROM python:3.14-slim-bookworm
 
 # Sæt arbejdsmappen inde i containeren
-WORKDIR /app                         
+WORKDIR /app
 
 # Kopiér afhængighedsfilen
 COPY requirements.txt .
@@ -15,7 +15,7 @@ COPY . .
 COPY watchdog_runner.py .
 
 # Sæt miljøvariabler for Flask
-ENV FLASK_APP=app.py
+ENV FLASK_APP=run.py
 ENV FLASK_RUN_PORT=5000
 ENV FLASK_RUN_HOST=0.0.0.0
 ENV FLASK_ENV=development

@@ -12,12 +12,12 @@ services:
           cpus: "1.0"
     build:
       context: /volume2/workspace/AI/AI-Active/AI-Python-PortefoeljePilot
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile
     ports:
       - "5050:5000"
     volumes:
       - /volume2/workspace/AI/AI-Active/AI-Python-PortefoeljePilot:/app
-    restart: unless-stopped
+    restart: "no"
     depends_on:
       - localai
 
@@ -32,7 +32,7 @@ services:
           cpus: "0.25"
     build:
       context: /volume2/workspace/AI/AI-Active/AI-Python-PortefoeljePilot
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     command:
       [
         "watchmedo",
@@ -48,7 +48,7 @@ services:
       - /volume2/workspace/AI/AI-Active/AI-Python-PortefoeljePilot:/app
     depends_on:
       - portefoljepilot
-    restart: unless-stopped
+    restart: "no"
 
   localai:
     container_name: localai
@@ -71,4 +71,4 @@ services:
       - DEBUG=${DEBUG}
       - THREADS=${THREADS}
       - CONTEXT_SIZE=${CONTEXT_SIZE}
-    restart: unless-stopped
+    restart: "no"

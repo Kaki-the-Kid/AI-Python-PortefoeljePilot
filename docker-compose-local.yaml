@@ -6,14 +6,14 @@ services:
       cockpit.weight: "medium"
     build:
       context: ./ # Lokalt projektmappe
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile
     ports:
       - "5050:5000"
     volumes:
       - Z:\:/app
-    restart: unless-stopped
     depends_on:
       - localai
+    restart: "no"
 
   watchdog:
     container_name: watchdog
@@ -22,7 +22,7 @@ services:
       cockpit.weight: "low"
     build:
       context: ./ # Samme lokale mappe
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     command:
       [
         "watchmedo",
@@ -38,7 +38,7 @@ services:
       - Z:\:/app
     depends_on:
       - portefoljepilot
-    restart: unless-stopped
+    restart: "no"
 
   localai:
     container_name: localai
@@ -60,4 +60,4 @@ services:
       - DEBUG=false
       - THREADS=4
       - CONTEXT_SIZE=2048
-    restart: unless-stopped
+    restart: "no"

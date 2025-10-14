@@ -8,7 +8,7 @@ Set-Location "\\DS420j\workspace\AI\AI-Active\AI-Python-PortefoeljePilot"
 . .venv\Scripts\Activate.ps1
 
 # Sæt miljøvariabler (Windows-style)
-$env:FLASK_APP = "app.py"
+$env:FLASK_APP = "./app/app.py"
 $env:FLASK_ENV = "development"
 
 # Start Flask
