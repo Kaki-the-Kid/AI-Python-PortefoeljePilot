@@ -69,6 +69,6 @@ services:
     environment:
       - MODELS_PATH=${MODELS_PATH}
       - DEBUG=${DEBUG}
-      - THREADS=${THREADS}
+      #- THREADS=${THREADS}
       - CONTEXT_SIZE=${CONTEXT_SIZE}
     restart: "no"

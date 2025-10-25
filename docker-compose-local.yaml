@@ -58,6 +58,6 @@ services:
     environment:
       - MODELS_PATH=/models
       - DEBUG=false
-      - THREADS=4
+      #- THREADS=4
       - CONTEXT_SIZE=2048
     restart: "no"

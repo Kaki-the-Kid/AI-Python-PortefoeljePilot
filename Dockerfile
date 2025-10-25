@@ -1,21 +1,21 @@
-# Base image med Python 3.12
+# Base image med Python 3.14
 FROM python:3.14-slim-bookworm
 
 # Sæt arbejdsmappen inde i containeren
 WORKDIR /app
 
 # Kopiér afhængighedsfilen
-COPY requirements.txt .
+COPY requirements.txt ./
 
 # Installer Python-pakkerne
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Kopiér resten af projektet inde i containeren
-COPY . .
+COPY . ./
 COPY watchdog_runner.py .
 
 # Sæt miljøvariabler for Flask
-ENV FLASK_APP=run.py
+ENV FLASK_APP=run
 ENV FLASK_RUN_PORT=5000
 ENV FLASK_RUN_HOST=0.0.0.0
 ENV FLASK_ENV=development
@@ -24,4 +24,4 @@ ENV FLASK_ENV=development
 EXPOSE 5000
 
 # Start Flask-appen når containeren kører
-CMD ["flask", "run", "--host=0.0.0.0", "--port=5000", "--reload"]
+CMD ["python", "run.py"]

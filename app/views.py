@@ -1,19 +1,18 @@
-from flask import Flask, redirect, render_template, render_template_string, Response, request, send_file, jsonify
-import markdown
+from flask import Blueprint, render_template, request, jsonify, Response, send_file
+import markdown, subprocess, json, socket, requests, os
+
 import subprocess
 import json
 import socket
 import requests
 import os
 
-
-app = Flask(__name__)
-app.config["DEBUG"] = True
+main_bp = Blueprint("main", __name__)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_PATH = os.path.join(BASE_DIR, "data", "competence.json")
 
 
-@app.route("/")
+@main_bp.route("/")
 def index():
     return render_template("index.html", status=get_status())
 
@@ -44,7 +43,7 @@ def get_status():
     return status
 
 
-@app.route("/kompetencer")
+@main_bp.route("/kompetencer")
 def show_competences():
     if not os.path.exists(DATA_PATH):
         return "Ingen kompetencefil fundet."
@@ -141,7 +140,7 @@ Svar med en professionel, dansk tekst.
     return response.json()["choices"][0]["message"]["content"]
 
 
-@app.route("/chat", methods=["POST"])
+@main_bp.route("/chat", methods=["POST"])
 def chat():
     user_input = request.json.get("message")
     if not user_input:
@@ -157,7 +156,12 @@ def chat():
     return jsonify({"reply": reply})
 
 
-@app.route("/test")
+@main_bp.route("/status")
+def status():
+    return jsonify(get_status())
+
+
+@main_bp.route("/test")
 def run_tests():
     result = subprocess.run(
         ["pytest", "--tb=short", "--disable-warnings"],
@@ -167,7 +171,7 @@ def run_tests():
     return Response(result.stdout, mimetype="text/plain")
 
 
-@app.route("/test-report")
+@main_bp.route("/test-report")
 def show_report():
     return send_file("tests/report.html")
 
