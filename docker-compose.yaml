@@ -8,8 +8,8 @@ services:
       resources:
         limits:
           cpus: "1.5"
-        reservations:
-          cpus: "1.0"
+        #reservations:
+        #cpus: "1.0"
     build:
       context: /volume2/workspace/AI/AI-Active/AI-Python-PortefoeljePilot
       dockerfile: Dockerfile

@@ -1,16 +1,16 @@
 # startlocaldocker.ps1
 
-Write-Host "🚀 Starter lokal Docker cockpit..."
+Write-Host "Starter lokal Docker cockpit..."
 
 # Skift til projektmappe
-Set-Location "\\DS420J\workspace\AI\AI-Active\AI-Python-PortefoeljePilot"
+Set-Location "Z:\AI\AI-Active\AI-Python-PortefoeljePilot"
 
 # Tjek om Docker kører
 try {
     docker info | Out-Null
 }
 catch {
-    Write-Host "🐳 Docker Desktop er ikke aktiv. Start venligst Docker og prøv igen."
+    Write-Host "Docker Desktop er ikke aktiv. Start venligst Docker og prøv igen."
     exit 1
 }
 
@@ -25,11 +25,11 @@ if ($overrideExists) {
 $composeCmd += " up -d"
 
 # Kør compose
-Write-Host "📦 Kører: $composeCmd"
+Write-Host "Kører: $composeCmd"
 Invoke-Expression $composeCmd
 
 # Vis status
-Write-Host "`n📊 Containerstatus:"
+Write-Host "Containerstatus:"
 docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
 
-Write-Host "`n✅ Cockpit er startet. Flask bør være tilgængelig på http://localhost:5050"
+Write-Host "Cockpit er startet. Flask bør være tilgængelig på http://localhost:5050"

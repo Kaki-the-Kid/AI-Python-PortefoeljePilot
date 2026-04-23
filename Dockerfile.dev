@@ -1,0 +1,20 @@
+# Dockerfile.dev – udviklingsvenlig Flask container
+FROM python:3.12-slim
+
+# Arbejdsmappe inde i containeren
+WORKDIR /app
+
+# Kopiér requirements først for cache-optimering
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Kopiér resten af projektet
+#COPY . .
+
+# Miljøvariabler til Flask udvikling
+ENV FLASK_APP=run.py
+ENV FLASK_ENV=development
+ENV FLASK_DEBUG=1
+
+# Start app direkte
+#CMD ["python", "run.py"]

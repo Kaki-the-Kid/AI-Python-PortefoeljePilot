@@ -2,13 +2,13 @@
 Write-Host "🚀 Starter PorteføljePilot cockpit..."
 
 # Skift til projektmappe
-Set-Location "\\DS420j\workspace\AI\AI-Active\AI-Python-PortefoeljePilot"
+Set-Location "Z:\AI\AI-Active\AI-Python-PortefoeljePilot"
 
 # Aktivér virtuel miljø
 . .venv\Scripts\Activate.ps1
 
 # Sæt miljøvariabler (Windows-style)
-$env:FLASK_APP = "./app/app.py"
+$env:FLASK_APP = "run.py"
 $env:FLASK_ENV = "development"
 
 # Start Flask

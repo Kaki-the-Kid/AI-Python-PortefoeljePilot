@@ -5,4 +5,5 @@ services:
     environment:
       - FLASK_ENV=development
       - FLASK_APP=run.py
-    command: ["python", "run.py"]
+      - FLASK_PORT=5050
+    #command: ["python", "run.py"]

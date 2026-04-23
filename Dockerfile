@@ -1,5 +1,5 @@
 # Base image med Python 3.14
-FROM python:3.14-slim-bookworm
+FROM python:3.12-slim-bookworm
 
 # Sæt arbejdsmappen inde i containeren
 WORKDIR /app
@@ -12,6 +12,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Kopiér resten af projektet inde i containeren
 COPY . ./
+COPY run.py .
 COPY watchdog_runner.py .
 
 # Sæt miljøvariabler for Flask

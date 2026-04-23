@@ -1,6 +1,7 @@
 services:
   portefoljepilot:
-    container_name: portefoljepilot
+    container_name: ${COMPOSE_PROJECT_NAME}_portefoljepilot
+
     labels:
       cockpit.role: "CV-agent"
       cockpit.weight: "medium"
@@ -13,6 +14,11 @@ services:
       - Z:\:/app
     depends_on:
       - localai
+    #healthcheck:
+    #  test: ["CMD", "python", "/app/run.py"]
+    #  interval: 30s
+    #  timeout: 10s
+    #  retries: 3
     restart: "no"
 
   watchdog:
@@ -58,6 +64,6 @@ services:
     environment:
       - MODELS_PATH=/models
       - DEBUG=false
-      #- THREADS=4
+      - THREADS=4
       - CONTEXT_SIZE=2048
     restart: "no"
