@@ -11,12 +11,12 @@ services:
         #reservations:
         #cpus: "1.0"
     build:
-      context: /volume2/workspace/AI/AI-Active/AI-Python-PortefoeljePilot
+      context: .
       dockerfile: Dockerfile
     ports:
       - "5050:5000"
     volumes:
-      - /volume2/workspace/AI/AI-Active/AI-Python-PortefoeljePilot:/app
+      - ./:/app
     restart: "no"
     depends_on:
       - localai
@@ -31,7 +31,7 @@ services:
         limits:
           cpus: "0.25"
     build:
-      context: /volume2/workspace/AI/AI-Active/AI-Python-PortefoeljePilot
+      context: .
       dockerfile: Dockerfile
     command:
       [
@@ -45,7 +45,7 @@ services:
         "watchdog_runner.py",
       ]
     volumes:
-      - /volume2/workspace/AI/AI-Active/AI-Python-PortefoeljePilot:/app
+      - ./:/app
     depends_on:
       - portefoljepilot
     restart: "no"
@@ -60,9 +60,9 @@ services:
     ports:
       - "1234:8080"
     volumes:
-      - /volume2/workspace/AI/models:/models
+      - ./models:/models
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/health" ]
       interval: 30s
       timeout: 10s
       retries: 3

@@ -11,7 +11,7 @@ services:
     ports:
       - "5050:5000"
     volumes:
-      - Z:\:/app
+      - ./:/app
     depends_on:
       - localai
     #healthcheck:
@@ -41,7 +41,7 @@ services:
         "watchdog_runner.py",
       ]
     volumes:
-      - Z:\:/app
+      - ./:/app
     depends_on:
       - portefoljepilot
     restart: "no"
@@ -55,9 +55,9 @@ services:
     ports:
       - "1234:8080"
     volumes:
-      - Z:\models:/models
+      - ./models:/models
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/health" ]
       interval: 30s
       timeout: 10s
       retries: 3
